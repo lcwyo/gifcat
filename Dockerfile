@@ -1,5 +1,5 @@
 # our base image
-FROM alpine:3.5
+FROM alpine:3.5 as base
 
 # Install python and pip
 RUN apk add --update py2-pip
@@ -11,6 +11,7 @@ RUN pip install --upgrade pip
 COPY requirements.txt /usr/src/app/
 RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
 
+FROM base as gifcat
 # copy files required for the app to run
 COPY app.py /usr/src/app/
 COPY templates/index.html /usr/src/app/templates/
